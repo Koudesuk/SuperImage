@@ -1,0 +1,426 @@
+/* iOS 26 Liquid Glass Dark Theme */
+
+/* Global Styles */
+* {
+    font-family: "Segoe UI", "San Francisco", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+}
+
+QMainWindow {
+    background-color: #0a0a0a;
+}
+
+QWidget {
+    background-color: transparent;
+    color: #e5e5e7;
+}
+
+/* Top Bar */
+#topBar {
+    background-color: rgba(28, 28, 30, 0.7);
+    border-radius: 12px;
+    padding: 10px;
+}
+
+/* Settings Button */
+#settingsButton {
+    background-color: rgba(58, 58, 60, 0.5);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#settingsButton:hover {
+    background-color: rgba(72, 72, 74, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#settingsButton:pressed {
+    background-color: rgba(44, 44, 46, 0.8);
+}
+
+/* Single Image Area */
+#singleImageArea {
+    background-color: transparent;
+}
+
+/* Drop Area */
+#inputDropArea, #outputViewer {
+    background-color: rgba(28, 28, 30, 0.6);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+}
+
+#inputDropArea:hover {
+    background-color: rgba(44, 44, 46, 0.7);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+#dropAreaLabel, #imageViewerLabel {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    padding: 20px;
+}
+
+/* Upscale Button */
+#upscaleButton {
+    background-color: rgba(52, 199, 89, 0.6);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#upscaleButton:hover {
+    background-color: rgba(52, 199, 89, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#upscaleButton:pressed {
+    background-color: rgba(42, 189, 79, 0.9);
+}
+
+#upscaleButton:disabled {
+    background-color: rgba(58, 58, 60, 0.3);
+    color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Multi-Image Button */
+#multiImageButton {
+    background-color: rgba(58, 58, 60, 0.5);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#multiImageButton:hover {
+    background-color: rgba(72, 72, 74, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#multiImageButton:pressed {
+    background-color: rgba(44, 44, 46, 0.8);
+}
+
+/* Image List Widget */
+#imageListTitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+#imageListCount {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    background-color: transparent;
+}
+
+#clearButton {
+    background-color: rgba(255, 59, 48, 0.6);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#clearButton:hover {
+    background-color: rgba(255, 69, 58, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#clearButton:pressed {
+    background-color: rgba(255, 49, 38, 0.9);
+}
+
+#imageListWidget {
+    background-color: rgba(28, 28, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 8px;
+    outline: none;
+}
+
+#imageListWidget::item {
+    background-color: rgba(58, 58, 60, 0.4);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+    margin: 4px;
+}
+
+#imageListWidget::item:hover {
+    background-color: rgba(72, 72, 74, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+#imageListWidget::item:selected {
+    background-color: rgba(0, 122, 255, 0.5);
+    border: 1px solid rgba(0, 122, 255, 0.7);
+}
+
+/* Status Label */
+#statusLabel {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    font-weight: 500;
+    background-color: transparent;
+}
+
+/* Progress Bar */
+#progressBar {
+    background-color: rgba(28, 28, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    text-align: center;
+    color: #ffffff;
+}
+
+#progressBar::chunk {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(0, 122, 255, 0.8),
+        stop:0.5 rgba(52, 199, 89, 0.8),
+        stop:1 rgba(0, 122, 255, 0.8)
+    );
+    border-radius: 15px;
+}
+
+/* Settings Dialog */
+#settingsDialog {
+    background-color: rgba(28, 28, 30, 0.95);
+    border-radius: 20px;
+}
+
+#settingLabel {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+/* ComboBox */
+#modelComboBox {
+    background-color: rgba(58, 58, 60, 0.5);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 8px 12px;
+    min-height: 30px;
+}
+
+#modelComboBox:hover {
+    background-color: rgba(72, 72, 74, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#modelComboBox::drop-down {
+    border: none;
+    padding-right: 10px;
+}
+
+#modelComboBox::down-arrow {
+    image: none;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid rgba(255, 255, 255, 0.8);
+    width: 0;
+    height: 0;
+}
+
+#modelComboBox QAbstractItemView {
+    background-color: rgba(44, 44, 46, 0.95);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 5px;
+    selection-background-color: rgba(0, 122, 255, 0.6);
+}
+
+/* LineEdit */
+#outputDirEdit {
+    background-color: rgba(58, 58, 60, 0.5);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 8px 12px;
+    min-height: 30px;
+}
+
+#outputDirEdit:focus {
+    border: 1px solid rgba(0, 122, 255, 0.6);
+}
+
+/* Browse Button */
+#browseButton {
+    background-color: rgba(58, 58, 60, 0.5);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 8px 16px;
+    min-height: 30px;
+}
+
+#browseButton:hover {
+    background-color: rgba(72, 72, 74, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#browseButton:pressed {
+    background-color: rgba(44, 44, 46, 0.8);
+}
+
+/* Dialog Button Box */
+#dialogButtonBox QPushButton {
+    background-color: rgba(0, 122, 255, 0.8);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 24px;
+    min-width: 80px;
+    font-weight: 600;
+}
+
+#dialogButtonBox QPushButton:hover {
+    background-color: rgba(10, 132, 255, 0.9);
+}
+
+#dialogButtonBox QPushButton:pressed {
+    background-color: rgba(0, 112, 245, 0.9);
+}
+
+/* Cancel button specific styling */
+QDialogButtonBox QPushButton[text="Cancel"] {
+    background-color: rgba(58, 58, 60, 0.5);
+}
+
+QDialogButtonBox QPushButton[text="Cancel"]:hover {
+    background-color: rgba(72, 72, 74, 0.7);
+}
+
+QDialogButtonBox QPushButton[text="Cancel"]:pressed {
+    background-color: rgba(44, 44, 46, 0.8);
+}
+
+/* Scrollbar */
+QScrollBar:vertical {
+    background-color: rgba(28, 28, 30, 0.3);
+    width: 10px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+/* Scroll Area */
+#settingsScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+/* Group Box */
+#advancedGroup {
+    background-color: rgba(28, 28, 30, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#advancedGroup::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 5px 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* SpinBox */
+#spinBox, #doubleSpinBox {
+    background-color: rgba(58, 58, 60, 0.5);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 6px 10px;
+    min-height: 28px;
+}
+
+#spinBox:hover, #doubleSpinBox:hover {
+    background-color: rgba(72, 72, 74, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#spinBox:focus, #doubleSpinBox:focus {
+    border: 1px solid rgba(0, 122, 255, 0.6);
+}
+
+#spinBox::up-button, #doubleSpinBox::up-button {
+    background-color: rgba(58, 58, 60, 0.3);
+    border: none;
+    border-top-right-radius: 8px;
+    width: 20px;
+}
+
+#spinBox::down-button, #doubleSpinBox::down-button {
+    background-color: rgba(58, 58, 60, 0.3);
+    border: none;
+    border-bottom-right-radius: 8px;
+    width: 20px;
+}
+
+#spinBox::up-button:hover, #doubleSpinBox::up-button:hover,
+#spinBox::down-button:hover, #doubleSpinBox::down-button:hover {
+    background-color: rgba(72, 72, 74, 0.5);
+}
+
+#spinBox::up-arrow, #doubleSpinBox::up-arrow {
+    image: none;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 5px solid rgba(255, 255, 255, 0.8);
+    width: 0;
+    height: 0;
+}
+
+#spinBox::down-arrow, #doubleSpinBox::down-arrow {
+    image: none;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid rgba(255, 255, 255, 0.8);
+    width: 0;
+    height: 0;
+}
+
+/* Tooltip */
+QToolTip {
+    background-color: rgba(44, 44, 46, 0.95);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px;
+    opacity: 230;
+}
