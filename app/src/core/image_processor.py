@@ -77,7 +77,7 @@ class BatchUpscaleWorker(QThread):
     """Worker thread for batch upscaling operations."""
 
     progress = Signal(int, str)
-    finished = Signal(int, int)
+    finished = Signal(int, int, list)  # success_count, total, failed_files
     error = Signal(str)
 
     def __init__(
@@ -104,6 +104,7 @@ class BatchUpscaleWorker(QThread):
         try:
             total = len(self.input_paths)
             success_count = 0
+            failed_files = []
 
             self.progress.emit(0, f"Initializing {self.model_name}...")
 
@@ -135,15 +136,17 @@ class BatchUpscaleWorker(QThread):
 
                 if success:
                     success_count += 1
+                else:
+                    failed_files.append(input_file.name)
 
             upscaler.cleanup()
 
             self.progress.emit(100, "Batch processing completed!")
-            self.finished.emit(success_count, total)
+            self.finished.emit(success_count, total, failed_files)
 
         except Exception as e:
             self.error.emit(f"Batch processing error: {str(e)}")
-            self.finished.emit(0, len(self.input_paths))
+            self.finished.emit(0, len(self.input_paths), [f.name for f in [Path(p) for p in self.input_paths]])
 
 
 class ImageProcessor(QObject):
@@ -151,7 +154,7 @@ class ImageProcessor(QObject):
 
     progress = Signal(int, str)
     single_finished = Signal(bool, str)
-    batch_finished = Signal(int, int)
+    batch_finished = Signal(int, int, list)  # success_count, total, failed_files
     error = Signal(str)
 
     def __init__(self):

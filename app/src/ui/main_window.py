@@ -297,15 +297,32 @@ class MainWindow(QMainWindow):
             )
             msg_box.exec()
 
-    def on_batch_finished(self, success_count: int, total: int):
+    def on_batch_finished(self, success_count: int, total: int, failed_files: list):
         """Handle batch upscaling completion."""
         self.batch_upscale_button.setEnabled(True)
 
-        msg_box = self.create_themed_message_box(
-            QMessageBox.Icon.Information,
-            "Batch Complete",
-            f"Batch processing completed!\n\nSuccessfully upscaled: {success_count}/{total} images"
-        )
+        # Build message based on results
+        if not failed_files:
+            # All succeeded
+            msg_box = self.create_themed_message_box(
+                QMessageBox.Icon.Information,
+                "Batch Complete",
+                f"Batch processing completed!\n\nSuccessfully upscaled: {success_count}/{total} images"
+            )
+        else:
+            # Some failed
+            failed_list = "\n".join([f"  • {name}" for name in failed_files])
+            message = (
+                f"Batch processing completed!\n\n"
+                f"Successfully upscaled: {success_count}/{total} images\n"
+                f"Failed: {len(failed_files)} image(s)\n\n"
+                f"Failed files:\n{failed_list}"
+            )
+            msg_box = self.create_themed_message_box(
+                QMessageBox.Icon.Warning if success_count > 0 else QMessageBox.Icon.Critical,
+                "Batch Complete",
+                message
+            )
         msg_box.exec()
 
     def on_error(self, error_message: str):
