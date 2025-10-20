@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gc
 import logging
 import sys
 import types
@@ -194,6 +195,8 @@ class RealESRGANUpscaler:
             # Load image (using np.fromfile to handle non-ASCII paths)
             img_buffer = np.fromfile(str(input_path), dtype=np.uint8)
             img = cv2.imdecode(img_buffer, cv2.IMREAD_UNCHANGED)
+            del img_buffer  # Free memory immediately after decode
+            
             if img is None:
                 logger.error(f"Failed to load image: {input_path}")
                 return False
@@ -204,18 +207,38 @@ class RealESRGANUpscaler:
             
             # Upscale
             output, _ = self.upsampler.enhance(img, outscale=outscale)
-
+            
+            # Clear GPU cache after processing to prevent VRAM accumulation
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+            
+            # CRITICAL FIX: Clear RealESRGANer internal tensors to prevent RAM leak
+            # The upsampler stores img/output as instance variables which accumulate
+            # in batch processing. Must explicitly delete them after each image.
+            if self.upsampler is not None:
+                if hasattr(self.upsampler, 'img'):
+                    del self.upsampler.img
+                if hasattr(self.upsampler, 'output'):
+                    del self.upsampler.output
+            
             # Save result (using imencode to handle non-ASCII paths)
             is_success, buffer = cv2.imencode(output_path.suffix, output)
             if is_success:
                 buffer.tofile(str(output_path))
             else:
                 logger.error(f"Failed to encode output image: {output_path}")
+                del img, output  # Clean up even on failure
+                gc.collect()
                 return False
             
             output_shape = output.shape[:2]
             logger.info(f"✓ Upscaled image saved: {output_path}")
             logger.info(f"Output size: {output_shape[1]}x{output_shape[0]}")
+            
+            # Explicitly free all large arrays to prevent RAM accumulation
+            # Critical for batch processing to avoid memory bloat
+            del img, output, buffer
+            gc.collect()  # Force garbage collection
             
             return True
             
